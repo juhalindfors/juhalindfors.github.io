@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Report: LLM Code Comprehension</title>
+    <meta name="description" content="Explores how Encapsulation & Strong Types impact LLM code generation & comprehension. There's a disconnect between human & AI understanding of software design. Check the interactive links for more!">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="How Do LLMs *Really* Understand Code?">
+    <meta property="og:description" content="How Encapsulation & Strong Types impact LLM code generation & comprehension. There's a disconnect between human & AI understanding of software design.">
+    <meta property="og:image" content="https://juhalindfors.github.io/ogimage.jpg">
+    <meta property="og:url" content="https://juhalindfors.github.io">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How Do LLMs *Really* Understand Code?">
+    <meta name="twitter:description" content="How Encapsulation & Strong Types impact LLM code generation & comprehension. There's a disconnect between human & AI understanding of software design.">
+    <meta name="twitter:image" content="https://juhalindfors.github.io/ogimage.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="canonical" href="https://juhalindfors.github.io">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #383838;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #4A90E2;
+            border-bottom-color: #4A90E2;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 40vh;
+        }
+        .btn-toggle {
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .btn-toggle.active {
+            background-color: #4A90E2;
+            color: #FFFFFF;
+        }
+        .btn-toggle:not(.active) {
+            background-color: #E0E0E0;
+            color: #383838;
+        }
+        .table-filter.active {
+            background-color: #4A90E2;
+            color: white;
+            border-color: #4A90E2;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-gray-800">LLM Code Comprehension</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#summary" class="nav-link px-3 py-2 text-sm font-medium text-gray-600 border-b-2 border-transparent">Summary</a>
+                        <a href="#debate" class="nav-link px-3 py-2 text-sm font-medium text-gray-600 border-b-2 border-transparent">The Debate</a>
+                        <a href="#deep-dive" class="nav-link px-3 py-2 text-sm font-medium text-gray-600 border-b-2 border-transparent">Deep Dive</a>
+                        <a href="#solutions" class="nav-link px-3 py-2 text-sm font-medium text-gray-600 border-b-2 border-transparent">Solutions</a>
+                        <a href="#evidence" class="nav-link px-3 py-2 text-sm font-medium text-gray-600 border-b-2 border-transparent">Evidence</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        
+        <section id="summary" class="text-center mb-16 md:mb-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How Do LLMs *Really* Understand Code?</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-10">
+              Do classic software design principles like Encapsulation and Strong Typing help Large Language Models write better code? 
+              There is a fundamental disconnect between how humans and AI comprehend software.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card p-6">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600 mx-auto mb-4">
+                        <span class="text-2xl">🧩</span>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Encapsulation's Surprise</h3>
+                    <p class="text-gray-600">Counter-intuitively, modular code—a key benefit of encapsulation—does not significantly improve LLM code generation performance. LLMs don't benefit from "less spaghetti code" in the same way humans do.</p>
+                </div>
+                <div class="card p-6">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-full bg-green-100 text-green-600 mx-auto mb-4">
+                        <span class="text-2xl">🔍</span>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Strong Types Offer Clarity</h3>
+                    <p class="text-gray-600">Explicit, syntactic rules from strong type systems provide clearer signals for LLMs. This helps them generate more accurate and locally consistent code, as ambiguity is reduced.</p>
+                </div>
+                <div class="card p-6">
+                     <div class="flex items-center justify-center h-12 w-12 rounded-full bg-red-100 text-red-600 mx-auto mb-4">
+                        <span class="text-2xl">🧠</span>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Shallow Comprehension</h3>
+                    <p class="text-gray-600">The core reason for this difference is that LLM understanding is shallow, relying on surface-level syntax and patterns, not deep, semantic logic and architectural intent.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="debate" class="mb-16 md:mb-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-4">Encapsulation and Strong Type Systems</h2>
+            <p class="max-w-3xl mx-auto text-lg text-center text-gray-600 mb-10">Programming principles designed for humans don't always translate to AI. This section directly compares how encapsulation and strong type systems affect LLM performance, highlighting why explicit rules trump abstract design concepts for today's models.</p>
+
+            <div class="flex justify-center mb-8 space-x-2">
+                <button id="toggle-encapsulation" class="btn-toggle active px-6 py-2 rounded-full font-semibold">Encapsulation</button>
+                <button id="toggle-types" class="btn-toggle px-6 py-2 rounded-full font-semibold">Strong Types</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 transition-opacity duration-300">
+                <div id="col-encapsulation" class="space-y-6">
+                    <h3 class="text-2xl font-bold text-center">Encapsulation & Modularity</h3>
+                    <div class="card p-6">
+                        <h4 class="font-semibold text-lg mb-2">Benefit for Humans</h4>
+                        <p class="text-gray-600">Reduces cognitive load by creating self-contained, reusable modules. Simplifies debugging and maintenance by hiding internal complexity and creating clear interfaces.</p>
+                    </div>
+                    <div class="card p-6 border-l-4 border-red-400">
+                        <h4 class="font-semibold text-lg mb-2">Impact on LLMs</h4>
+                        <p class="text-gray-600">The benefit is minimal to non-existent. LLMs, relying on statistical patterns, don't perceive the semantic advantage of modularity. They struggle to grasp the abstract design intent behind why information is hidden or how components should ideally interact.</p>
+                    </div>
+                </div>
+                <div id="col-types" class="space-y-6 opacity-50 md:opacity-100">
+                    <h3 class="text-2xl font-bold text-center">Strong Type Systems</h3>
+                    <div class="card p-6">
+                        <h4 class="font-semibold text-lg mb-2">Benefit for Humans</h4>
+                        <p class="text-gray-600">Catches errors early, often at compile-time. Provides explicit contracts about data, making code self-documenting and easier to reason about, ensuring refactoring safety.</p>
+                    </div>
+                    <div class="card p-6 border-l-4 border-green-400">
+                        <h4 class="font-semibold text-lg mb-2">Impact on LLMs</h4>
+                        <p class="text-gray-600">Highly beneficial. The explicit, syntactic rules of types provide clear, unambiguous patterns for the LLM to learn and reproduce. This reduces ambiguity and helps generate more accurate, locally correct code.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="deep-dive" class="mb-16 md:mb-24 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Deep Dive: Surface Patterns vs. True Logic</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-10">Why don't LLMs appreciate good architecture? It's because their "understanding" is fundamentally different from ours. They excel at recognizing surface patterns but falter when true semantic comprehension is required, as shown by their performance on different types of programming tasks.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="card p-6">
+                    <h3 class="text-xl font-semibold mb-4 text-left">LLM Performance Disparity</h3>
+                     <p class="text-left text-gray-600 mb-4">This chart visualizes the significant gap in LLM performance between tasks requiring surface-level pattern matching versus those needing deep semantic understanding. LLMs are adept at syntax but struggle with the underlying logic required for tasks like static analysis.</p>
+                    <div class="chart-container">
+                        <canvas id="comprehensionChart"></canvas>
+                    </div>
+                </div>
+                <div class="card p-6 text-left">
+                    <h3 class="text-xl font-semibold mb-4">The Iceberg of Code Comprehension</h3>
+                    <p class="text-gray-600 mb-6">An LLM primarily "sees" the tip of the iceberg—the visible syntax. The vast, submerged part representing true logic, architecture, and intent remains largely invisible to it.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-blue-100 p-3 rounded-lg">
+                            <p class="font-semibold text-blue-800">Surface Level (LLM's Strength)</p>
+                            <p class="text-sm text-blue-700">Variable Names, Code Formatting, Syntactic Patterns, Boilerplate</p>
+                        </div>
+                        <div class="bg-gray-200 p-3 rounded-lg">
+                            <p class="font-semibold text-gray-800">Semantic Depth (LLM's Weakness)</p>
+                            <p class="text-sm text-gray-700">Algorithmic Logic, Architectural Intent, Data Flow, Security Implications</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-6 border-t border-gray-200">
+                         <p class="text-sm text-gray-500 mb-2">A stark example:</p>
+                        <p class="text-gray-700 font-semibold">LLMs fail to debug the same bug in <span class="text-red-600 text-2xl font-bold">81%</span> of 
+                          cases if the code is slightly changed while preserving its logic (e.g., renaming a variable).<sup>*</sup></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solutions" class="mb-16 md:mb-24 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">The Path Forward: Smarter Collaboration</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-10">Since LLMs lack deep architectural understanding, the key to generating high-quality code is effective human-AI collaboration. This involves guiding the LLM with clear intent and structuring the development process to enforce good design principles externally.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card p-8">
+                    <h3 class="text-xl font-semibold mb-4">Human-in-the-Loop Refinement</h3>
+                    <p class="text-gray-600 mb-6">The most effective workflow is an iterative cycle where the human provides architectural guidance and the LLM handles implementation, followed by human review and refinement.</p>
+                    <div class="space-y-2 text-left font-medium">
+                        <div class="flex items-center p-3 bg-gray-100 rounded-lg">1. <span class="ml-3">Human provides detailed prompt & design context.</span></div>
+                        <div class="text-center text-gray-400">↓</div>
+                        <div class="flex items-center p-3 bg-blue-100 rounded-lg">2. <span class="ml-3">LLM generates initial code.</span></div>
+                        <div class="text-center text-gray-400">↓</div>
+                        <div class="flex items-center p-3 bg-gray-100 rounded-lg">3. <span class="ml-3">Human reviews, debugs, and provides feedback.</span></div>
+                        <div class="text-center text-gray-400">↺</div>
+                    </div>
+                </div>
+                <div class="card p-8">
+                    <h3 class="text-xl font-semibold mb-4">Multi-Agent Systems</h3>
+                    <p class="text-gray-600 mb-6">Future systems emulate a development team by using multiple specialized LLM agents, externalizing the design reasoning that a single LLM lacks.</p>
+                     <div class="space-y-3 text-left">
+                        <div class="p-3 bg-green-100 rounded-lg"><strong class="text-green-800">Analyst Agent:</strong> Defines requirements.</div>
+                        <div class="p-3 bg-blue-100 rounded-lg"><strong class="text-blue-800">Coder Agent:</strong> Writes the code.</div>
+                        <div class="p-3 bg-yellow-100 rounded-lg"><strong class="text-yellow-800">Tester Agent:</strong> Validates functionality.</div>
+                         <div class="p-3 bg-red-100 rounded-lg"><strong class="text-red-800">Security Agent:</strong> Checks for vulnerabilities.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="evidence" class="text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Explore the Evidence</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-10">This interactive table summarizes the key academic studies referenced in this report. Filter by topic to explore the research that informs these findings and see how the software engineering community is studying this evolving field.</p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mb-6">
+                <button class="table-filter active border border-gray-300 px-4 py-1.5 rounded-full text-sm font-medium" data-filter="all">All</button>
+                <button class="table-filter border border-gray-300 px-4 py-1.5 rounded-full text-sm font-medium" data-filter="modularity">Modularity</button>
+                <button class="table-filter border border-gray-300 px-4 py-1.5 rounded-full text-sm font-medium" data-filter="comprehension">Comprehension</button>
+                <button class="table-filter border border-gray-300 px-4 py-1.5 rounded-full text-sm font-medium" data-filter="types">Type Systems</button>
+                <button class="table-filter border border-gray-300 px-4 py-1.5 rounded-full text-sm font-medium" data-filter="security">Security</button>
+            </div>
+
+            <div class="card overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-500">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">Focus</th>
+                            <th scope="col" class="px-6 py-3">Key Finding</th>
+                            <th scope="col" class="px-6 py-3">Implication</th>
+                        </tr>
+                    </thead>
+                    <tbody id="evidence-table-body">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white mt-16">
+        <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+            <p><sup>*</sup> How Accurately Do Large Language Models Understand Code? - https://arxiv.org/html/2504.04372v1
+            <p>Interactive Report generated from source material. All findings are based on the cited academic studies.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const evidenceData = [
+                { focus: "Modularity's Impact", finding: "Modular code does not significantly outperform non-modular code in generation.", implication: "LLMs don't inherently benefit from modularity like humans.", category: "modularity" },
+                { focus: "Design Pattern Adherence", finding: "LLMs often fail to capture existing coding standards and required design patterns.", implication: "LLMs struggle with higher-level architectural intent.", category: "modularity" },
+                { focus: "Code Comprehension Depth", finding: "Understanding is shallow, tied to lexical/syntactic features, overlooking semantics.", implication: "Fundamental limitation in deep code comprehension.", category: "comprehension" },
+                { focus: "Semantic-Preserving Mutations", finding: "LLMs fail to debug 81% of bugs after non-functional code changes.", implication: "Proves reliance on surface patterns over logic.", category: "comprehension" },
+                { focus: "Static Analysis Capability", finding: "Poor LLM performance on tasks like call graph and data flow analysis.", implication: "Inability to reason about code structure without execution.", category: "comprehension" },
+                { focus: "Strongly Typed Languages (Go)", finding: "LLMs can understand them very well; refactoring is perceived as safer.", implication: "Explicit types provide clear signals that LLMs can leverage.", category: "types" },
+                { focus: "Python with/without Type Hints", finding: "LLMs struggle with large Python codebases when type hints aren't used.", implication: "Explicit type info is a significant aid for LLM comprehension.", category: "types" },
+                { focus: "Security Vulnerabilities", finding: "LLMs generate vulnerable code and often fail to warn about it.", implication: "Type safety does not guarantee overall security from LLMs.", category: "security" },
+                { focus: "Augmented Systems", finding: "LLMs augmented with design knowledge can produce robust solutions.", implication: "External guidance can compensate for LLM limitations.", category: "modularity" },
+            ];
+
+            const tableBody = document.getElementById('evidence-table-body');
+            const filterButtons = document.querySelectorAll('.table-filter');
+
+            function populateTable(filter) {
+                tableBody.innerHTML = '';
+                const filteredData = filter === 'all' ? evidenceData : evidenceData.filter(item => item.category === filter);
+
+                filteredData.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.className = 'bg-white border-b';
+                    row.innerHTML = `
+                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">${item.focus}</td>
+                        <td class="px-6 py-4">${item.finding}</td>
+                        <td class="px-6 py-4">${item.implication}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    populateTable(button.dataset.filter);
+                });
+            });
+
+            populateTable('all');
+
+
+            const ctx = document.getElementById('comprehensionChart').getContext('2d');
+            const comprehensionChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Surface/Syntactic Task Performance', 'Deep/Semantic Task Performance'],
+                    datasets: [{
+                        label: 'LLM Performance Score',
+                        data: [92, 31],
+                        backgroundColor: [
+                            'rgba(74, 144, 226, 0.6)',
+                            'rgba(226, 125, 96, 0.6)',
+                        ],
+                        borderColor: [
+                            'rgba(74, 144, 226, 1)',
+                            'rgba(226, 125, 96, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + "%"
+                                }
+                            }
+                        },
+                         y: {
+                            ticks: {
+                                autoSkip: false,
+                                callback: function(value, index, values) {
+                                    const label = this.getLabelForValue(value);
+                                    if (label.length > 20) {
+                                        return label.match(/.{1,20}/g);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `Performance: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const toggleEncapsulation = document.getElementById('toggle-encapsulation');
+            const toggleTypes = document.getElementById('toggle-types');
+            const colEncapsulation = document.getElementById('col-encapsulation');
+            const colTypes = document.getElementById('col-types');
+
+            function handleToggle(activeBtn, inactiveBtn, activeCol, inactiveCol) {
+                activeBtn.classList.add('active');
+                inactiveBtn.classList.remove('active');
+                if (window.innerWidth >= 768) {
+                    activeCol.style.opacity = '1';
+                    inactiveCol.style.opacity = '0.5';
+                } else {
+                     activeCol.style.display = 'block';
+                     inactiveCol.style.display = 'none';
+                }
+            }
+            
+            function setupToggleView() {
+                if (window.innerWidth < 768) {
+                    if (toggleEncapsulation.classList.contains('active')) {
+                        colEncapsulation.style.display = 'block';
+                        colTypes.style.display = 'none';
+                    } else {
+                        colEncapsulation.style.display = 'none';
+                        colTypes.style.display = 'block';
+                    }
+                } else {
+                    colEncapsulation.style.display = 'block';
+                    colTypes.style.display = 'block';
+                    colTypes.style.opacity = '1';
+                    colEncapsulation.style.opacity = '1';
+                     if (toggleEncapsulation.classList.contains('active')) {
+                        handleToggle(toggleEncapsulation, toggleTypes, colEncapsulation, colTypes);
+                    } else {
+                        handleToggle(toggleTypes, toggleEncapsulation, colTypes, colEncapsulation);
+                    }
+                }
+            }
+
+            toggleEncapsulation.addEventListener('click', () => handleToggle(toggleEncapsulation, toggleTypes, colEncapsulation, colTypes));
+            toggleTypes.addEventListener('click', () => handleToggle(toggleTypes, toggleEncapsulation, colTypes, colEncapsulation));
+            
+            window.addEventListener('resize', setupToggleView);
+            setupToggleView();
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main section');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 80) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
